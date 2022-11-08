@@ -19,7 +19,7 @@ Once you get a test passing, you can enable the next one by removing the
 
 ## Submitting your solution
 
-You can submit your solution using the `exercism submit src/main/kotlin/Hamming.kt` command.
+You can submit your solution using the `exercism submit src/main/kotlin/Gigasecond.kt` command.
 This command will upload your solution to the Exercism website and print the solution page's URL.
 
 It's possible to submit an incomplete solution which allows you to:
