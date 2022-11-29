@@ -1,0 +1,9 @@
+object Raindrops {
+
+    fun convert(num: Int): String = buildString {
+        if (num % 3 == 0) append("Pling")
+        if (num % 5 == 0) append("Plang")
+        if (num % 7 == 0) append("Plong")
+        if (isEmpty()) append(num)
+    }
+}
