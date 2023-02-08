@@ -1,0 +1,24 @@
+{
+  "blurb": "Make sure the brackets and braces all match.",
+  "authors": ["geoand"],
+  "contributors": [
+    "dector",
+    "enixander",
+    "eparovyshnaya",
+    "jtigger",
+    "lihofm",
+    "mdowds",
+    "nithia",
+    "sdavids13",
+    "sjwarner-bp",
+    "SleeplessByte",
+    "stkent",
+    "uzilan"
+  ],
+  "files": {
+    "solution": ["src/main/kotlin/MatchingBrackets.kt"],
+    "test": ["src/test/kotlin/MatchingBracketsTest.kt"],
+    "example": [".meta/src/reference/kotlin/MatchingBrackets.kt"]
+  },
+  "source": "Ginna Baker"
+}
