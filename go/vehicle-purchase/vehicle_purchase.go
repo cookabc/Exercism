@@ -11,11 +11,9 @@ func NeedsLicense(kind string) bool {
 // ChooseVehicle recommends a vehicle for selection. It always recommends the vehicle that comes first in lexicographical order.
 func ChooseVehicle(option1, option2 string) string {
 	// panic("ChooseVehicle not implemented")
-	var option string
+	option := option2
 	if option1 < option2 {
 		option = option1
-	} else {
-		option = option2
 	}
 	return fmt.Sprintf("%s is clearly the better choice.", option)
 }
@@ -23,11 +21,11 @@ func ChooseVehicle(option1, option2 string) string {
 // CalculateResellPrice calculates how much a vehicle can resell for at a certain age.
 func CalculateResellPrice(originalPrice, age float64) float64 {
 	// panic("CalculateResellPrice not implemented")
-	if age < 3 {
-		return originalPrice * 0.8
-	} else if age < 10 {
-		return originalPrice * 0.7
-	} else {
-		return originalPrice * 0.5
-	}
+	percent := 0.5
+    if age < 3 {
+        percent = 0.8
+    } else if age < 10 {
+    	percent = 0.7
+    }
+	return originalPrice * percent
 }
