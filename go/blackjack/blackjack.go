@@ -2,70 +2,54 @@ package blackjack
 
 // ParseCard returns the integer value of a card following blackjack ruleset.
 func ParseCard(card string) int {
-	// panic("Please implement the ParseCard function")
-	switch card {
-		case "ace":
-			return 11
-		case "two":
-			return 2
-		case "three":
-			return 3
-		case "four":
-			return 4
-		case "five":
-			return 5
-		case "six":
-			return 6
-		case "seven":
-			return 7
-		case "eight":
-			return 8
-		case "nine":
-			return 9
-		case "ten", "jack", "queen", "king":
-			return 10
-		default:
-			return 0
-    }
+	cards := map[string]int{
+		"ace":   11,
+		"two":   2,
+		"three": 3,
+		"four":  4,
+		"five":  5,
+		"six":   6,
+		"seven": 7,
+		"eight": 8,
+		"nine":  9,
+		"ten":   10,
+		"jack":  10,
+		"queen": 10,
+		"king":  10,
+	}
+	return cards[card]
 }
-
 // FirstTurn returns the decision for the first turn, given two cards of the
 // player and one card of the dealer.
 func FirstTurn(card1, card2, dealerCard string) string {
-	// panic("Please implement the FirstTurn function")
-	// Calculate the numerical values of the player's cards and the dealer's card
-    value1 := ParseCard(card1)
-    value2 := ParseCard(card2)
-    dealerValue := ParseCard(dealerCard)
-
-    // Check for pair of aces
-    if card1 == "ace" && card2 == "ace" {
-        return "P"
-    }
-
-    // Check for blackjack
-    if value1+value2 == 21 {
-        if dealerValue != 1 && dealerValue < 10 {
-            return "W"
-        } else {
-            return "S"
-        }
-    }
-
-    // Check for hand value in range [17, 20]
-    if value1+value2 >= 17 && value1+value2 <= 20 {
-        return "S"
-    }
-
-    // Check for hand value in range [12, 16]
-    if value1+value2 >= 12 && value1+value2 <= 16 {
-        if dealerValue >= 7 {
-            return "H"
-        } else {
-            return "S"
-        }
-    }
-
-    // Hand value is 11 or lower
-    return "H"
+	switch {
+		case ParseCard(card1)+ParseCard(card2) > 20:
+			return LargeHand(IsBlackjack(card1, card2), ParseCard(dealerCard))
+		default:
+			return SmallHand(ParseCard(card1)+ParseCard(card2), ParseCard(dealerCard))
+	}
+}
+// IsBlackjack returns true if the player has a blackjack, false otherwise.
+func IsBlackjack(card1, card2 string) bool {
+	return ParseCard(card1)+ParseCard(card2) == 21
+}
+// LargeHand implements the decision tree for hand scores larger than 20 points.
+func LargeHand(isBlackjack bool, dealerScore int) string {
+	switch {
+	case !isBlackjack:
+		return "P"
+	case dealerScore < 10:
+		return "W"
+	default:
+		return "S"
+	}
+}
+// SmallHand implements the decision tree for hand scores with less than 21 points.
+func SmallHand(handScore, dealerScore int) string {
+	switch {
+	case handScore <= 11 || (dealerScore >= 7 && handScore < 17):
+		return "H"
+	default:
+		return "S"
+	}
 }
