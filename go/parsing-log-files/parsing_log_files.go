@@ -3,18 +3,12 @@ package parsinglogfiles
 import (
 	"fmt"
 	"regexp"
-	"strings"
 )
 
 func IsValidLine(text string) bool {
 	// panic("Please implement the IsValidLine function")
-	validPrefixes := []string{"[TRC]", "[DBG]", "[INF]", "[WRN]", "[ERR]", "[FTL]"}
-	for _, prefix := range validPrefixes {
-		if strings.HasPrefix(text, prefix) {
-			return true
-		}
-	}
-	return false
+	prefixRegexp := regexp.MustCompile(`^\[(TRC|DBG|INF|WRN|ERR|FTL)\]`)
+	return prefixRegexp.MatchString(text)
 }
 
 func SplitLogLine(line string) []string {
