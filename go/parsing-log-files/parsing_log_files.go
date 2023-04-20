@@ -26,16 +26,11 @@ func SplitLogLine(line string) []string {
 
 func CountQuotedPasswords(lines []string) int {
 	// panic("Please implement the CountQuotedPasswords function")
+	passwordRegexp := regexp.MustCompile(`"(?i:[^"]*password[^"]*)"`)
 	count := 0
 	for _, line := range lines {
-		inQuote := false
-		for i := 0; i < len(line); i++ {
-			if line[i] == '"' {
-				inQuote = !inQuote
-			} else if inQuote && i < len(line)-len("password")+1 && strings.Contains(strings.ToLower(line[i:i+len("password")]), "password") {
-				count++
-				break
-			}
+		if passwordRegexp.MatchString(line) {
+			count++
 		}
 	}
 	return count
